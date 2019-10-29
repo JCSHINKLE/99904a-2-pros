@@ -9,6 +9,12 @@ extern pros::Motor driveRightBack;
 extern pros::Motor driveLeftFront;
 extern pros::Motor driveLeftBack;
 
+extern pros::Motor topLift;
+extern pros::Motor bottomLift;
+
+extern pros::Motor rightIntake;
+extern pros::Motor leftIntake;
+
 extern double gyroCurrent;
 extern double gyroLast;
 extern float gyroOutput;

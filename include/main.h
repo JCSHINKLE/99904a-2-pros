@@ -37,10 +37,16 @@
 #include "api.h"
 
 
-#define DRIVE_RIGHT_FRONT_PORT 1
+#define DRIVE_RIGHT_FRONT_PORT 4
 #define DRIVE_RIGHT_BACK_PORT 3
 #define DRIVE_LEFT_FRONT_PORT 2
-#define DRIVE_LEFT_BACK_PORT 4
+#define DRIVE_LEFT_BACK_PORT 1
+
+#define TOP_LIFT_PORT 5
+#define BOTTOM_LIFT_PORT 6
+
+#define RIGHT_INTAKE_PORT 9
+#define LEFT_INTAKE_PORT 8
 
 #define GYRO_PORT 7
 /**

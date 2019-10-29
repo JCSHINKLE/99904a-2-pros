@@ -232,63 +232,17 @@ void drivePIDTime (double target, double time, double setPointRange = 900, doubl
 
 void red_front_auton()
 {
-  drivePIDTime(3000, 1700);
-  pros::delay(400);
-  drivePIDTime(-2250, 1500);
-  turnPIDTime(1800, 1500, false);
-  pros::delay(400);
-  turnPIDTime(3100, 1000, false);
-  pros::delay(300);
-  drivePIDTime(900, 800, 900, -60, 1);
-  drivePIDTime(900, 1500, 280, 10, 1);
-  drivePIDTime(-1500, 1200);
-  turnPIDTime(4550, 1000, false);
-  //drivePID(1850, 1100);
-  turnPIDTime(3550, 900, false);
-  drivePIDTime(3500, 5000);
+  //
 }
-void red_back_auton() {
-  //red back
-  drivePIDTime(3100, 1700);
+void red_back_auton()
+{
+  drivePIDTime(1000, 1000);
   pros::delay(400);
-  drivePIDTime(-300, 500);
-  turnPIDTime(-900, 1000, false);
-  drivePIDTime(3000, 2500);
-
-  turnPIDTime(-900, 800, false, 0.003);
-  drivePIDTime(1600, 1700, 270);
-  turnPIDTime(-1800, 1000, false);
-  driveRightFront.move(10);
-  driveRightBack.move(10);
-  driveLeftFront.move(10);
-  driveLeftBack.move(10);
-  pros::delay(1500);
-  driveRightFront.move(0);
-  driveRightBack.move(0);
-  driveLeftFront.move(0);
-  driveLeftBack.move(0);
-
-  turnPIDTime(190, 700, true, 0.003);
-  pros::delay(400);
-  turnPIDTime(-1100, 1000);
-  drivePIDTime(2600, 2500);
+  drivePIDTime(-1000, 1000);
 }
-void blue_front_auton() {
-  //blue primary auton
-  drivePIDTime(3000, 1700);
-  pros::delay(400);
-  drivePIDTime(-2300, 1500);
-  turnPIDTime(0, 800, false, 0.003);
-  pros::delay(400);
-  turnPIDTime(600, 1000, false);
-  pros::delay(300);
-  drivePIDTime(1000, 800, 900, 10, 1);
-  drivePIDTime(1000, 1500, 280, 10, 1);
-  drivePIDTime(-1570, 1200);
-  turnPIDTime(-900, 1000, false);
-  //drivePID(1850, 1100);
-  turnPIDTime(0, 900, false);
-  drivePIDTime(3500, 5000);
+void blue_front_auton()
+{
+  //
 }
 void blue_back_auton() {
   //Blue back
@@ -359,11 +313,11 @@ void blue_front_nopark_auton() {
 }
 void red_front_mid_nopark_auton()
 {
-
+  //
 }
 void prog_skills()
 {
-
+  //
 }
 
 void test()
