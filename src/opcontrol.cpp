@@ -5,11 +5,14 @@
 
 void opcontrol()
 {
-// drive control
+	// drive control
 	bool broke = false;
-	double initialLift = topLift.get_position();
-	topLift.tare_position();
-	bottomLift.tare_position();
+	driveRightFront.set_voltage_limit(12000);
+  driveRightBack.set_voltage_limit(12000);
+  driveLeftFront.set_voltage_limit(12000);
+  driveLeftBack.set_voltage_limit(12000);
+	rightIntake.set_voltage_limit(12000);
+  leftIntake.set_voltage_limit(12000);
 	while (true)
 	{
 		int turn = weber.get_analog(ANALOG_LEFT_X);
@@ -42,7 +45,7 @@ void opcontrol()
 			broke = false;
 		}
 
-// cube intake
+		// cube intake
 		if (weber.get_digital(DIGITAL_R1))
 		{
 			rightIntake.move_velocity(200);
@@ -57,9 +60,12 @@ void opcontrol()
 		{
 			rightIntake.move_velocity(0);
 			leftIntake.move_velocity(0);
+
+			rightIntake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+			leftIntake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 		}
 
-// lift
+		// lift
 		if(abs(weber.get_analog(ANALOG_RIGHT_Y)) > 1)
 		{
 			topLift.move(weber.get_analog(ANALOG_RIGHT_Y));
@@ -67,32 +73,34 @@ void opcontrol()
 		}
 		else
 		{
-			topLift.move(0);
-			bottomLift.move(0);
-
-			topLift.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-			bottomLift.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-
-// cube fast outake
+			// cube fast outake
 			if (weber.get_digital(DIGITAL_A))
 			{
-				topLift.move_velocity(50);
-				bottomLift.move_velocity(50);
+				topLift.move_velocity(100);
+				bottomLift.move_velocity(100);
 				rightIntake.move_velocity(-150);
 				leftIntake.move_velocity(-150);
+			}
+			else
+			{
+				topLift.move(0);
+				bottomLift.move(0);
+
+				topLift.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+				bottomLift.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 			}
 		}
 
 		switch(getAutonNumber())
 		{
 		  case 0:
-		    pros::lcd::print(0, "Auton: RED FRONT PARK");
+		    pros::lcd::print(0, "Auton: ANYWHERE 1");
 				break;
 		  case 1:
-		    pros::lcd::print(0, "Auton: RED BACK MID PARK");
+		    pros::lcd::print(0, "Auton: BLUE FRONT 4");
 				break;
 		  case 2:
-		    pros::lcd::print(0, "Auton: BLUE FRONT PARK");
+		    pros::lcd::print(0, "Auton: RED FRONT 4");
 				break;
 		  case 3:
 		    pros::lcd::print(0, "Auton: BLUE BACK MID PARK");
@@ -107,16 +115,18 @@ void opcontrol()
 				pros::lcd::print(0, "Auton: PROG SKILLS 1");
 				break;
 			case 7:
-				pros::lcd::print(0, "Test");
+				pros::lcd::print(0, "Auton: NONE");
 				break;
 		}
 		pros::lcd::print(1, "Gyro %f", gyroOutput );
-		pros::lcd::print(2, "Gyroadj %f", gyroOutput / 1.061 );
-		pros::lcd::print(3, "Gyroraw %f", gyro.get() );
-		pros::lcd::print(4, "rightIntake Temp %f", rightIntake.get_temperature() );
-		pros::lcd::print(5, "leftIntake Temp %f", leftIntake.get_temperature() );
-		pros::lcd::print(6, "topLift Temp %f", topLift.get_temperature() );
-		pros::lcd::print(7, "bottomLift Temp %f", bottomLift.get_temperature() );
+		//pros::lcd::print(2, "Gyroadj %f", gyroOutput / 1.061 );
+		//pros::lcd::print(3, "Gyroraw %f", gyro.get() );
+		pros::lcd::print(2, "rightIntake Temp %f", rightIntake.get_temperature() );
+		pros::lcd::print(3, "leftIntake Temp %f", leftIntake.get_temperature() );
+		pros::lcd::print(4, "topLift Temp %f", topLift.get_temperature() );
+		pros::lcd::print(5, "bottomLift Temp %f", bottomLift.get_temperature() );
+		pros::lcd::print(6, "IN LOVING MEMORY OF:" );
+		pros::lcd::print(7, "GABRIEL BLYE AND HUMZA" );
 		pros::delay(20);
 	}
 }

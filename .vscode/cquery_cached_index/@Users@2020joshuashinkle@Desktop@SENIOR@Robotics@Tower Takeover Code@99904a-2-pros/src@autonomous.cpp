@@ -230,86 +230,89 @@ void drivePIDTime (double target, double time, double setPointRange = 900, doubl
   std::cout << "Right Error: " << rightMotorEncoderAverage << std::endl;
 }
 
-void red_front_auton()
+void any_1()
 {
-  //
-}
-void red_back_auton()
-{
+  // current
+  driveRightFront.set_voltage_limit(12000);
+  driveRightBack.set_voltage_limit(12000);
+  driveLeftFront.set_voltage_limit(12000);
+  driveLeftBack.set_voltage_limit(12000);
   drivePIDTime(1000, 1000);
   pros::delay(400);
   drivePIDTime(-1000, 1000);
 }
-void blue_front_auton()
+void blue_front_4()
+{
+  topLift.tare_position();
+  bottomLift.tare_position();
+  driveRightFront.set_voltage_limit(6000);
+  driveRightBack.set_voltage_limit(6000);
+  driveLeftFront.set_voltage_limit(6000);
+  driveLeftBack.set_voltage_limit(6000);
+  rightIntake.move_voltage(12000);
+  leftIntake.move_voltage(12000);
+  drivePIDTime(3700, 4000);
+  rightIntake.move_voltage(0);
+  leftIntake.move_voltage(0);
+  drivePIDTime(-2500, 3000);
+  topLift.move_absolute(200, 127);
+  bottomLift.move_absolute(200, 127);
+  turnPIDTime(-1300, 1000);
+  drivePIDTime(1550, 2000);
+  rightIntake.move_voltage(-8000);
+  leftIntake.move_voltage(-8000);
+  pros::delay(500);
+  topLift.move_absolute(3000, 80);
+  bottomLift.move_absolute(3000, 80);
+  pros::delay(2000);
+  rightIntake.move_voltage(0);
+  leftIntake.move_voltage(0);
+  drivePIDTime(-1000, 1000);
+}
+void red_front_4()
+{
+  topLift.tare_position();
+  bottomLift.tare_position();
+  driveRightFront.set_voltage_limit(6000);
+  driveRightBack.set_voltage_limit(6000);
+  driveLeftFront.set_voltage_limit(6000);
+  driveLeftBack.set_voltage_limit(6000);
+  rightIntake.move_voltage(12000);
+  leftIntake.move_voltage(12000);
+  drivePIDTime(3700, 4000);
+  rightIntake.move_voltage(0);
+  leftIntake.move_voltage(0);
+  drivePIDTime(-2500, 3000);
+  topLift.move_absolute(200, 127);
+  bottomLift.move_absolute(200, 127);
+  turnPIDTime(1300, 1000);
+  drivePIDTime(1550, 2000);
+  rightIntake.move_voltage(-8000);
+  leftIntake.move_voltage(-8000);
+  pros::delay(500);
+  topLift.move_absolute(3000, 80);
+  bottomLift.move_absolute(3000, 80);
+  pros::delay(2000);
+  rightIntake.move_voltage(0);
+  leftIntake.move_voltage(0);
+  drivePIDTime(-1000, 1000);
+}
+void blue_back_auton()
 {
   //
 }
-void blue_back_auton() {
-  //Blue back
-  drivePIDTime(3100, 1700);
-  pros::delay(400);
-  drivePIDTime(-400, 500);
-  turnPIDTime(900, 1000, false);
-  drivePIDTime(3000, 2500);
-
-  turnPIDTime(900, 800, false, 0.003);
-  drivePIDTime(1600, 1700, 270);
-  turnPIDTime(0, 1000, false);
-  driveRightFront.move(10);
-  driveRightBack.move(10);
-  driveLeftFront.move(10);
-  driveLeftBack.move(10);
-  pros::delay(1500);
-  driveRightFront.move(0);
-  driveRightBack.move(0);
-  driveLeftFront.move(0);
-  driveLeftBack.move(0);
-
-  turnPIDTime(-140, 700, true, 0.003);
-  pros::delay(400);
-  turnPIDTime(-1000, 1000);
-  drivePIDTime(2600, 2500);
-
-
+void red_front_nopark_auton()
+{
+  //
 }
-void red_front_nopark_auton() {
-  drivePIDTime(3000, 1700);
-  pros::delay(400);
-  drivePIDTime(-2250, 1500);
-  turnPIDTime(1800, 1500, false);
-  pros::delay(400);
-  turnPIDTime(2635, 1000, false);
-
-  drivePIDTime(3500, 2100, false);
-  drivePIDTime(-1700, 900);
-
-  turnPIDTime(3620, 900, false);
-  drivePIDTime(600, 700, 900, -60, 1);
-  drivePIDTime(750, 900, 280, 10, 1);
-
-  turnPIDTime(2340, 1200, false);
-  pros::delay(400);
-
-}
-void blue_front_nopark_auton() {
-  drivePIDTime(3000, 1700);
-  pros::delay(400);
+void blue_front_nopark_auton()
+{
   drivePIDTime(-2370, 1500);
   turnPIDTime(0, 800, false, 0.003);
   pros::delay(400);
-  drivePIDTime(-150, 500);
   turnPIDTime(920, 1000, false);
-
-  drivePIDTime(3800, 2100, false);
-  drivePIDTime(-1850, 900);
-
-  turnPIDTime(0, 900, false);
   drivePIDTime(600, 700, 900, 10, 1);
-  drivePIDTime(820, 900, 280, 10, 1);
-
-  turnPIDTime(-520, 1200, false);
   pros::delay(400);
-
 }
 void red_front_mid_nopark_auton()
 {
@@ -320,11 +323,9 @@ void prog_skills()
   //
 }
 
-void test()
+void no_auton()
 {
-  drivePIDTime(1000, 1000);
-  turnPIDTime(-900, 1000, false);
-  //pros::lcd::print(2, "Gyro %f", gyroOutput );
+  //
 }
 
 void autonomous()
@@ -332,13 +333,13 @@ void autonomous()
   switch(getAutonNumber())
   {
     case 0:
-      red_front_auton();
+      any_1();
       break;
     case 1:
-      red_back_auton();
+      blue_front_4();
       break;
     case 2:
-      blue_front_auton();
+      red_front_4();
       break;
     case 3:
       blue_back_auton();
@@ -353,7 +354,7 @@ void autonomous()
       prog_skills();
       break;
     case 7:
-      test();
+      no_auton();
       break;
   }
 }
