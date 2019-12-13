@@ -237,9 +237,9 @@ void any_1()
   driveRightBack.set_voltage_limit(12000);
   driveLeftFront.set_voltage_limit(12000);
   driveLeftBack.set_voltage_limit(12000);
-  drivePIDTime(1000, 1000);
-  pros::delay(400);
   drivePIDTime(-1000, 1000);
+  pros::delay(400);
+  drivePIDTime(1000, 1000);
 }
 void blue_front_4()
 {

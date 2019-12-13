@@ -46,7 +46,7 @@
 #define BOTTOM_LIFT_PORT 6
 
 #define RIGHT_INTAKE_PORT 9
-#define LEFT_INTAKE_PORT 20
+#define LEFT_INTAKE_PORT 18
 
 #define GYRO_PORT 7
 /**

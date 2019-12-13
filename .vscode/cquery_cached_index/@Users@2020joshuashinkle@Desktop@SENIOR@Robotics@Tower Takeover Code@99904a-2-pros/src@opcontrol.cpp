@@ -5,7 +5,6 @@
 
 void opcontrol()
 {
-	// drive control
 	bool broke = false;
 	driveRightFront.set_voltage_limit(12000);
   driveRightBack.set_voltage_limit(12000);
@@ -13,12 +12,29 @@ void opcontrol()
   driveLeftBack.set_voltage_limit(12000);
 	rightIntake.set_voltage_limit(12000);
   leftIntake.set_voltage_limit(12000);
+	bool reversed = false;
 	while (true)
 	{
+		//drive control
 		int turn = weber.get_analog(ANALOG_LEFT_X);
 		int power = weber.get_analog(ANALOG_LEFT_Y);
-		int left = power + turn;
-		int right = power - turn;
+		int left;
+		int right;
+		if (reversed == true)
+		{
+			left = power - turn;
+			right = power + turn;
+		}
+		else
+		{
+			left = power + turn;
+			right = power - turn;
+		}
+
+		if (weber.get_digital_new_press(DIGITAL_Y))
+		{
+			reversed = !reversed;
+		}
 
 		if (abs(turn) + abs(power) < 1 && !broke)
 		{
@@ -36,12 +52,20 @@ void opcontrol()
 			driveLeftBack.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 			broke = true;
 		}
-		else
+		else if (reversed == false)
 		{
 			driveRightFront.move(right);
 			driveRightBack.move(right);
 			driveLeftFront.move(left);
 			driveLeftBack.move(left);
+			broke = false;
+		}
+		else if (reversed == true)
+		{
+			driveRightFront.move(-right);
+			driveRightBack.move(-right);
+			driveLeftFront.move(-left);
+			driveLeftBack.move(-left);
 			broke = false;
 		}
 
@@ -78,8 +102,8 @@ void opcontrol()
 			{
 				topLift.move_velocity(100);
 				bottomLift.move_velocity(100);
-				rightIntake.move_velocity(-150);
-				leftIntake.move_velocity(-150);
+				rightIntake.move_velocity(-170);
+				leftIntake.move_velocity(-170);
 			}
 			else
 			{
@@ -121,12 +145,12 @@ void opcontrol()
 		pros::lcd::print(1, "Gyro %f", gyroOutput );
 		//pros::lcd::print(2, "Gyroadj %f", gyroOutput / 1.061 );
 		//pros::lcd::print(3, "Gyroraw %f", gyro.get() );
-		pros::lcd::print(2, "rightIntake Temp %f", rightIntake.get_temperature() );
-		pros::lcd::print(3, "leftIntake Temp %f", leftIntake.get_temperature() );
-		pros::lcd::print(4, "topLift Temp %f", topLift.get_temperature() );
-		pros::lcd::print(5, "bottomLift Temp %f", bottomLift.get_temperature() );
-		pros::lcd::print(6, "IN LOVING MEMORY OF:" );
-		pros::lcd::print(7, "GABRIEL BLYE AND HUMZA" );
+		pros::lcd::print(2, "rightIntake %f", rightIntake.get_temperature() );
+		pros::lcd::print(3, "leftIntake %f", leftIntake.get_temperature() );
+		pros::lcd::print(4, "topLift %f", topLift.get_temperature() );
+		pros::lcd::print(5, "bottomLift %f", bottomLift.get_temperature() );
+		pros::lcd::print(6, "Drive %f %f", driveLeftFront.get_temperature(), driveRightFront.get_temperature() );
+		pros::lcd::print(7, "Drive %f %f", driveLeftBack.get_temperature(), driveRightBack.get_temperature());
 		pros::delay(20);
 	}
 }
