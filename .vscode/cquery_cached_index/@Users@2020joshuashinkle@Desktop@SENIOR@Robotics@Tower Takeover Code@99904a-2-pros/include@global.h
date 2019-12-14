@@ -4,14 +4,13 @@ extern pros:: Controller weber;
 
 extern okapi::ADIGyro gyro;
 
-extern pros::Motor driveRightFront;
-extern pros::Motor driveRightBack;
-extern pros::Motor driveLeftFront;
-extern pros::Motor driveLeftBack;
-extern pros::Motor topLift;
-extern pros::Motor bottomLift;
+extern pros::Motor driveRight;
+extern pros::Motor driveLeft;
+extern pros::Motor leftLift;
+extern pros::Motor rightLift;
 extern pros::Motor rightIntake;
 extern pros::Motor leftIntake;
+extern pros::Motor tilter;
 
 extern double gyroCurrent;
 extern double gyroLast;

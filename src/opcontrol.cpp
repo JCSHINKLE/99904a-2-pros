@@ -6,10 +6,8 @@
 void opcontrol()
 {
 	bool broke = false;
-	driveRightFront.set_voltage_limit(12000);
-  driveRightBack.set_voltage_limit(12000);
-  driveLeftFront.set_voltage_limit(12000);
-  driveLeftBack.set_voltage_limit(12000);
+	driveRight.set_voltage_limit(12000);
+  driveLeft.set_voltage_limit(12000);
 	rightIntake.set_voltage_limit(12000);
   leftIntake.set_voltage_limit(12000);
 	bool reversed = false;
@@ -38,44 +36,46 @@ void opcontrol()
 
 		if (abs(turn) + abs(power) < 1 && !broke)
 		{
-			driveRightFront.move(0);
-			driveRightBack.move(0);
-			driveLeftFront.move(0);
-			driveLeftBack.move(0);
-			driveRightFront.move_velocity(0);
-			driveRightBack.move_velocity(0);
-			driveLeftFront.move_velocity(0);
-			driveLeftBack.move_velocity(0);
-			driveRightFront.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-			driveRightBack.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-			driveLeftFront.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-			driveLeftBack.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+			driveRight.move(0);
+			driveLeft.move(0);
+			driveRight.move_velocity(0);
+			driveLeft.move_velocity(0);
+			driveRight.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+			driveLeft.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 			broke = true;
 		}
 		else if (reversed == false)
 		{
-			driveRightFront.move(right);
-			driveRightBack.move(right);
-			driveLeftFront.move(left);
-			driveLeftBack.move(left);
+			driveRight.move(right);
+			driveLeft.move(left);
 			broke = false;
 		}
 		else if (reversed == true)
 		{
-			driveRightFront.move(-right);
-			driveRightBack.move(-right);
-			driveLeftFront.move(-left);
-			driveLeftBack.move(-left);
+			driveRight.move(-right);
+			driveLeft.move(-left);
 			broke = false;
 		}
 
+		// tilter
+		if(abs(weber.get_analog(ANALOG_RIGHT_X)) > 1)
+		{
+			tilter.move(weber.get_analog(ANALOG_RIGHT_X));
+		}
+		else
+		{
+			tilter.move(0);
+			tilter.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+		}
+
+
 		// cube intake
-		if (weber.get_digital(DIGITAL_R1))
+		if (weber.get_digital(DIGITAL_R2))
 		{
 			rightIntake.move_velocity(200);
 			leftIntake.move_velocity(200);
 		}
-		else if (weber.get_digital(DIGITAL_R2))
+		else if (weber.get_digital(DIGITAL_R1))
 		{
 			rightIntake.move_velocity(-200);
 			leftIntake.move_velocity(-200);
@@ -89,30 +89,20 @@ void opcontrol()
 			leftIntake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 		}
 
+
 		// lift
 		if(abs(weber.get_analog(ANALOG_RIGHT_Y)) > 1)
 		{
-			topLift.move(weber.get_analog(ANALOG_RIGHT_Y));
-			bottomLift.move(weber.get_analog(ANALOG_RIGHT_Y));
+			leftLift.move(weber.get_analog(ANALOG_RIGHT_Y));
+			rightLift.move(weber.get_analog(ANALOG_RIGHT_Y));
 		}
 		else
 		{
-			// cube fast outake
-			if (weber.get_digital(DIGITAL_A))
-			{
-				topLift.move_velocity(100);
-				bottomLift.move_velocity(100);
-				rightIntake.move_velocity(-170);
-				leftIntake.move_velocity(-170);
-			}
-			else
-			{
-				topLift.move(0);
-				bottomLift.move(0);
+			leftLift.move(0);
+			rightLift.move(0);
 
-				topLift.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-				bottomLift.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-			}
+			leftLift.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+			rightLift.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 		}
 
 		switch(getAutonNumber())
@@ -147,10 +137,10 @@ void opcontrol()
 		//pros::lcd::print(3, "Gyroraw %f", gyro.get() );
 		pros::lcd::print(2, "rightIntake %f", rightIntake.get_temperature() );
 		pros::lcd::print(3, "leftIntake %f", leftIntake.get_temperature() );
-		pros::lcd::print(4, "topLift %f", topLift.get_temperature() );
-		pros::lcd::print(5, "bottomLift %f", bottomLift.get_temperature() );
-		pros::lcd::print(6, "Drive %f %f", driveLeftFront.get_temperature(), driveRightFront.get_temperature() );
-		pros::lcd::print(7, "Drive %f %f", driveLeftBack.get_temperature(), driveRightBack.get_temperature());
+		pros::lcd::print(4, "leftLift %f", leftLift.get_temperature() );
+		pros::lcd::print(5, "rightLift %f", rightLift.get_temperature() );
+		pros::lcd::print(6, "Drive %f %f", driveRight.get_temperature() );
+		pros::lcd::print(7, "Drive %f %f", driveLeft.get_temperature() );
 		pros::delay(20);
 	}
 }

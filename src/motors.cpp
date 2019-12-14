@@ -8,13 +8,13 @@ pros::Controller weber(pros::E_CONTROLLER_MASTER);
 
 okapi::ADIGyro gyro(GYRO_PORT);
 
-pros::Motor driveRightFront(DRIVE_RIGHT_FRONT_PORT, pros::E_MOTOR_GEARSET_18, true);
-pros::Motor driveRightBack(DRIVE_RIGHT_BACK_PORT, pros::E_MOTOR_GEARSET_18, true);
-pros::Motor driveLeftFront(DRIVE_LEFT_FRONT_PORT, pros::E_MOTOR_GEARSET_18, false);
-pros::Motor driveLeftBack(DRIVE_LEFT_BACK_PORT, pros::E_MOTOR_GEARSET_18, false);
+pros::Motor driveRight(DRIVE_RIGHT_PORT, pros::E_MOTOR_GEARSET_18, true);
+pros::Motor driveLeft(DRIVE_LEFT_PORT, pros::E_MOTOR_GEARSET_18, false);
 
-pros::Motor topLift(TOP_LIFT_PORT, pros::E_MOTOR_GEARSET_36, true);
-pros::Motor bottomLift(BOTTOM_LIFT_PORT, pros::E_MOTOR_GEARSET_36, true);
+pros::Motor leftLift(LEFT_LIFT_PORT, pros::E_MOTOR_GEARSET_36, true);
+pros::Motor rightLift(RIGHT_LIFT_PORT, pros::E_MOTOR_GEARSET_36, true);
+
+pros::Motor tilter(TILTER_PORT, pros::E_MOTOR_GEARSET_36, true);
 
 pros::Motor rightIntake(RIGHT_INTAKE_PORT, pros::E_MOTOR_GEARSET_18, false);
 pros::Motor leftIntake(LEFT_INTAKE_PORT, pros::E_MOTOR_GEARSET_18, true);

@@ -14,7 +14,7 @@ using namespace okapi::literals;
  * for non-competition testing purposes.
  *
  * If the robot is disabled or communications is lost, the autonomous task
- * will be stopped. Re-enabling the robot will restart the task, not re-start it
+ * will be sleftped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
 
@@ -94,20 +94,16 @@ void turnPIDTime (double target, double time, bool reset = true, double i = 0)
   while(iterations < time)
   {
     double output = pid.getOutput(gyroOutput/gyroCalibrationConst, target + bias);
-    driveRightFront.move(-output);
-    driveRightBack.move(-output);
-    driveLeftFront.move(output);
-    driveLeftBack.move(output);
+    driveRight.move(-output);
+    driveLeft.move(output);
     pros::delay(10);
     pros::lcd::print(0, "Gyro: %f\n", gyroOutput);
     pros::lcd::print(1, "Gyroadj : %f\n", gyroOutput / gyroCalibrationConst);
     pros::lcd::print(1, "Error : %f\n", abs(target) - abs(gyroOutput / gyroCalibrationConst));
     iterations = iterations + 10;
   }
-  driveRightFront.move(0);
-  driveRightBack.move(0);
-  driveLeftFront.move(0);
-  driveLeftBack.move(0);
+  driveRight.move(0);
+  driveLeft.move(0);
 }
 
 /*void drivePID (double target, double setPointRange = 900, double rightBias = 10, double sideBias = 1)
@@ -202,10 +198,8 @@ void drivePIDTime (double target, double time, double setPointRange = 900, doubl
   rightPID.setMaxIOutput(30);
   rightPID.setSetpointRange(setPointRange);
 
-  driveRightFront.tare_position();
-  driveRightBack.tare_position();
-  driveLeftFront.tare_position();
-  driveLeftBack.tare_position();
+  driveRight.tare_position();
+  driveLeft.tare_position();
 
   int iterations = 0;
   int timeout = 0;
@@ -214,14 +208,12 @@ void drivePIDTime (double target, double time, double setPointRange = 900, doubl
 
   while(iterations < time)
   {
-    leftMotorEncoderAverage = (driveLeftFront.get_position());// + driveLeftBack.get_position()) / 2;
-    rightMotorEncoderAverage = (driveRightFront.get_position());// + driveRightBack.get_position()) / 2;
+    leftMotorEncoderAverage = (driveLeft.get_position());// + driveLeftBack.get_position()) / 2;
+    rightMotorEncoderAverage = (driveRight.get_position());// + driveRightBack.get_position()) / 2;
     double leftOutput = leftPID.getOutput(leftMotorEncoderAverage, target + leftBias);
     double rightOutput = sideBias * rightPID.getOutput(rightMotorEncoderAverage, target + rightBias);
-    driveRightFront.move(rightOutput);
-    driveRightBack.move(rightOutput);
-    driveLeftFront.move(leftOutput);
-    driveLeftBack.move(leftOutput);
+    driveRight.move(rightOutput);
+    driveLeft.move(leftOutput);
     pros::delay(10);
     iterations = iterations + 10;
   }
@@ -233,37 +225,33 @@ void drivePIDTime (double target, double time, double setPointRange = 900, doubl
 void any_1()
 {
   // current
-  driveRightFront.set_voltage_limit(12000);
-  driveRightBack.set_voltage_limit(12000);
-  driveLeftFront.set_voltage_limit(12000);
-  driveLeftBack.set_voltage_limit(12000);
+  driveRight.set_voltage_limit(12000);
+  driveLeft.set_voltage_limit(12000);
   drivePIDTime(-1000, 1000);
   pros::delay(400);
   drivePIDTime(1000, 1000);
 }
 void blue_front_4()
 {
-  topLift.tare_position();
-  bottomLift.tare_position();
-  driveRightFront.set_voltage_limit(6000);
-  driveRightBack.set_voltage_limit(6000);
-  driveLeftFront.set_voltage_limit(6000);
-  driveLeftBack.set_voltage_limit(6000);
+  leftLift.tare_position();
+  rightLift.tare_position();
+  driveRight.set_voltage_limit(6000);
+  driveLeft.set_voltage_limit(6000);
   rightIntake.move_voltage(12000);
   leftIntake.move_voltage(12000);
   drivePIDTime(3700, 4000);
   rightIntake.move_voltage(0);
   leftIntake.move_voltage(0);
   drivePIDTime(-2500, 3000);
-  topLift.move_absolute(200, 127);
-  bottomLift.move_absolute(200, 127);
+  leftLift.move_absolute(200, 127);
+  rightLift.move_absolute(200, 127);
   turnPIDTime(-1300, 1000);
   drivePIDTime(1550, 2000);
   rightIntake.move_voltage(-8000);
   leftIntake.move_voltage(-8000);
   pros::delay(500);
-  topLift.move_absolute(3000, 80);
-  bottomLift.move_absolute(3000, 80);
+  leftLift.move_absolute(3000, 80);
+  rightLift.move_absolute(3000, 80);
   pros::delay(2000);
   rightIntake.move_voltage(0);
   leftIntake.move_voltage(0);
@@ -271,27 +259,25 @@ void blue_front_4()
 }
 void red_front_4()
 {
-  topLift.tare_position();
-  bottomLift.tare_position();
-  driveRightFront.set_voltage_limit(6000);
-  driveRightBack.set_voltage_limit(6000);
-  driveLeftFront.set_voltage_limit(6000);
-  driveLeftBack.set_voltage_limit(6000);
+  leftLift.tare_position();
+  rightLift.tare_position();
+  driveRight.set_voltage_limit(6000);
+  driveLeft.set_voltage_limit(6000);
   rightIntake.move_voltage(12000);
   leftIntake.move_voltage(12000);
   drivePIDTime(3700, 4000);
   rightIntake.move_voltage(0);
   leftIntake.move_voltage(0);
   drivePIDTime(-2500, 3000);
-  topLift.move_absolute(200, 127);
-  bottomLift.move_absolute(200, 127);
+  leftLift.move_absolute(200, 127);
+  rightLift.move_absolute(200, 127);
   turnPIDTime(1300, 1000);
   drivePIDTime(1550, 2000);
   rightIntake.move_voltage(-8000);
   leftIntake.move_voltage(-8000);
   pros::delay(500);
-  topLift.move_absolute(3000, 80);
-  bottomLift.move_absolute(3000, 80);
+  leftLift.move_absolute(3000, 80);
+  rightLift.move_absolute(3000, 80);
   pros::delay(2000);
   rightIntake.move_voltage(0);
   leftIntake.move_voltage(0);
