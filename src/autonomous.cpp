@@ -231,7 +231,7 @@ void any_1()
   pros::delay(400);
   drivePIDTime(1000, 1000);
 }
-void blue_front_4()
+void blue_front()
 {
   leftLift.tare_position();
   rightLift.tare_position();
@@ -257,7 +257,7 @@ void blue_front_4()
   leftIntake.move_voltage(0);
   drivePIDTime(-1000, 1000);
 }
-void red_front_4()
+void red_front()
 {
   leftLift.tare_position();
   rightLift.tare_position();
@@ -283,11 +283,11 @@ void red_front_4()
   leftIntake.move_voltage(0);
   drivePIDTime(-1000, 1000);
 }
-void blue_back_auton()
+void blue_back()
 {
   //
 }
-void red_front_nopark_auton()
+void red_back()
 {
   //
 }
@@ -322,16 +322,16 @@ void autonomous()
       any_1();
       break;
     case 1:
-      blue_front_4();
+      blue_front();
       break;
     case 2:
-      red_front_4();
+      red_front();
       break;
     case 3:
-      blue_back_auton();
+      blue_back();
       break;
     case 4:
-      red_front_nopark_auton();
+      red_back();
       break;
     case 5:
       blue_front_nopark_auton();

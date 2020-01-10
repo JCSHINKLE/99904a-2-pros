@@ -64,7 +64,7 @@ void opcontrol()
 		}
 		else
 		{
-			tilter.move(0);
+			tilter.move_velocity(0);
 			tilter.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 		}
 
@@ -72,21 +72,32 @@ void opcontrol()
 		// cube intake
 		if (weber.get_digital(DIGITAL_R2))
 		{
-			rightIntake.move_velocity(200);
-			leftIntake.move_velocity(200);
+			rightIntake.move_velocity(100);
+			leftIntake.move_velocity(100);
 		}
 		else if (weber.get_digital(DIGITAL_R1))
 		{
-			rightIntake.move_velocity(-200);
-			leftIntake.move_velocity(-200);
+			rightIntake.move_velocity(-100);
+			leftIntake.move_velocity(-100);
+		}
+		else if (weber.get_digital(DIGITAL_A))
+		{
+			leftIntake.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+			rightIntake.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+			rightIntake.move_velocity(35);
+			leftIntake.move_velocity(35);
+			driveRight.move_velocity(-10);
+			driveLeft.move_velocity(-10);
+			leftIntake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+			rightIntake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 		}
 		else
 		{
-			rightIntake.move_velocity(0);
 			leftIntake.move_velocity(0);
+			rightIntake.move_velocity(0);
 
-			rightIntake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 			leftIntake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+			rightIntake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 		}
 
 
@@ -98,8 +109,8 @@ void opcontrol()
 		}
 		else
 		{
-			leftLift.move(0);
-			rightLift.move(0);
+			leftLift.move_velocity(0);
+			rightLift.move_velocity(0);
 
 			leftLift.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 			rightLift.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
@@ -111,16 +122,16 @@ void opcontrol()
 		    pros::lcd::print(0, "Auton: ANYWHERE 1");
 				break;
 		  case 1:
-		    pros::lcd::print(0, "Auton: BLUE FRONT 4");
+		    pros::lcd::print(0, "Auton: BLUE FRONT");
 				break;
 		  case 2:
-		    pros::lcd::print(0, "Auton: RED FRONT 4");
+		    pros::lcd::print(0, "Auton: RED FRONT");
 				break;
 		  case 3:
-		    pros::lcd::print(0, "Auton: BLUE BACK MID PARK");
+		    pros::lcd::print(0, "Auton: BLUE BACK");
 				break;
 		  case 4:
-		    pros::lcd::print(0, "Auton: RED FRONT NOPARK");
+		    pros::lcd::print(0, "Auton: RED BACK");
 				break;
 			case 5:
 				pros::lcd::print(0, "Auton: BLUE FRONT NOPARK");
@@ -139,8 +150,8 @@ void opcontrol()
 		pros::lcd::print(3, "leftIntake %f", leftIntake.get_temperature() );
 		pros::lcd::print(4, "leftLift %f", leftLift.get_temperature() );
 		pros::lcd::print(5, "rightLift %f", rightLift.get_temperature() );
-		pros::lcd::print(6, "Drive %f %f", driveRight.get_temperature() );
-		pros::lcd::print(7, "Drive %f %f", driveLeft.get_temperature() );
+		pros::lcd::print(6, "driveRight %f", driveRight.get_temperature() );
+		pros::lcd::print(7, "driveLeft %f", driveLeft.get_temperature() );
 		pros::delay(20);
 	}
 }
