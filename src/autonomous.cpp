@@ -222,66 +222,81 @@ void drivePIDTime (double target, double time, double setPointRange = 900, doubl
   std::cout << "Right Error: " << rightMotorEncoderAverage << std::endl;
 }
 
+void flipOut ()
+{
+  driveRight.move(-75);
+  driveLeft.move(-75);
+  rightIntake.move(127);
+  leftIntake.move(127);
+  leftLift.move(127);
+  rightLift.move(127);
+  pros::delay(700);
+  rightIntake.move(-127);
+  leftIntake.move(-127);
+  leftLift.move(-127);
+  rightLift.move(-127);
+  pros::delay(700);
+  leftLift.move(0);
+  rightLift.move(0);
+  driveRight.move(0);
+  driveLeft.move(0);
+}
+
 void any_1()
 {
   // current
-  driveRight.set_voltage_limit(12000);
-  driveLeft.set_voltage_limit(12000);
   drivePIDTime(-1000, 1000);
   pros::delay(400);
   drivePIDTime(1000, 1000);
+  flipOut();
 }
 void blue_front()
 {
   leftLift.tare_position();
   rightLift.tare_position();
-  driveRight.set_voltage_limit(6000);
-  driveLeft.set_voltage_limit(6000);
-  rightIntake.move_voltage(12000);
-  leftIntake.move_voltage(12000);
-  drivePIDTime(3700, 4000);
-  rightIntake.move_voltage(0);
-  leftIntake.move_voltage(0);
-  drivePIDTime(-2500, 3000);
-  leftLift.move_absolute(200, 127);
-  rightLift.move_absolute(200, 127);
-  turnPIDTime(-1300, 1000);
-  drivePIDTime(1550, 2000);
-  rightIntake.move_voltage(-8000);
-  leftIntake.move_voltage(-8000);
+  tilter.tare_position();
+  flipOut();
+  drivePIDTime(3000, 4200, 200);
+  rightIntake.move(0);
+  leftIntake.move(0);
+  drivePIDTime(-1500, 1500);
+  rightIntake.move(65);
+  leftIntake.move(65);
   pros::delay(500);
-  leftLift.move_absolute(3000, 80);
-  rightLift.move_absolute(3000, 80);
+  rightIntake.move(-40);
+  leftIntake.move(-40);
+  turnPIDTime(-1350, 1500, 200);
+  drivePIDTime(1550, 2000, 200);
+  tilter.move(100);
   pros::delay(2000);
-  rightIntake.move_voltage(0);
-  leftIntake.move_voltage(0);
-  drivePIDTime(-1000, 1000);
+  tilter.move(0);
+  rightIntake.move(75);
+  leftIntake.move(75);
+  drivePIDTime(-1000, 1000, 200);
 }
 void red_front()
 {
   leftLift.tare_position();
   rightLift.tare_position();
-  driveRight.set_voltage_limit(6000);
-  driveLeft.set_voltage_limit(6000);
-  rightIntake.move_voltage(12000);
-  leftIntake.move_voltage(12000);
-  drivePIDTime(3700, 4000);
-  rightIntake.move_voltage(0);
-  leftIntake.move_voltage(0);
-  drivePIDTime(-2500, 3000);
-  leftLift.move_absolute(200, 127);
-  rightLift.move_absolute(200, 127);
-  turnPIDTime(1300, 1000);
-  drivePIDTime(1550, 2000);
-  rightIntake.move_voltage(-8000);
-  leftIntake.move_voltage(-8000);
+  tilter.tare_position();
+  flipOut();
+  drivePIDTime(3000, 4500, 200);
+  rightIntake.move(0);
+  leftIntake.move(0);
+  drivePIDTime(-1500, 1600);
+  rightIntake.move(75);
+  leftIntake.move(75);
   pros::delay(500);
-  leftLift.move_absolute(3000, 80);
-  rightLift.move_absolute(3000, 80);
-  pros::delay(2000);
-  rightIntake.move_voltage(0);
-  leftIntake.move_voltage(0);
-  drivePIDTime(-1000, 1000);
+  rightIntake.move(-50);
+  leftIntake.move(-50);
+  turnPIDTime(1350, 1500, 200);
+  drivePIDTime(1550, 2000, 200);
+  tilter.move(75);
+  pros::delay(1500);
+  tilter.move(0);
+  rightIntake.move(-50);
+  leftIntake.move(-50);
+  drivePIDTime(-1500, 1000, 200);
 }
 void blue_back()
 {

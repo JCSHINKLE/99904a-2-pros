@@ -6,10 +6,10 @@
 void opcontrol()
 {
 	bool broke = false;
-	driveRight.set_voltage_limit(12000);
-  driveLeft.set_voltage_limit(12000);
-	rightIntake.set_voltage_limit(12000);
-  leftIntake.set_voltage_limit(12000);
+	//driveRight.set_voltage_limit(12000);
+  //driveLeft.set_voltage_limit(12000);
+	//rightIntake.set_voltage_limit(12000);
+  //leftIntake.set_voltage_limit(12000);
 	bool reversed = false;
 	while (true)
 	{
