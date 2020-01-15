@@ -244,11 +244,24 @@ void flipOut ()
 
 void any_1()
 {
-  // current
-  drivePIDTime(-1000, 1000);
+  drivePIDTime(-1000, 1000, 500);
   pros::delay(400);
   drivePIDTime(1000, 1000);
-  flipOut();
+  rightIntake.move(127);
+  leftIntake.move(127);
+  leftLift.move(127);
+  rightLift.move(127);
+  pros::delay(700);
+  rightIntake.move(-127);
+  leftIntake.move(-127);
+  leftLift.move(-127);
+  rightLift.move(-127);
+  pros::delay(700);
+  leftLift.move(0);
+  rightLift.move(0);
+  rightIntake.move(0);
+  leftIntake.move(0);
+
 }
 void blue_front()
 {
@@ -280,23 +293,23 @@ void red_front()
   rightLift.tare_position();
   tilter.tare_position();
   flipOut();
-  drivePIDTime(3000, 4500, 200);
+  drivePIDTime(3000, 4200, 200);
   rightIntake.move(0);
   leftIntake.move(0);
-  drivePIDTime(-1500, 1600);
-  rightIntake.move(75);
-  leftIntake.move(75);
+  drivePIDTime(-1500, 1500);
+  rightIntake.move(65);
+  leftIntake.move(65);
   pros::delay(500);
-  rightIntake.move(-50);
-  leftIntake.move(-50);
+  rightIntake.move(-40);
+  leftIntake.move(-40);
   turnPIDTime(1350, 1500, 200);
   drivePIDTime(1550, 2000, 200);
-  tilter.move(75);
-  pros::delay(1500);
+  tilter.move(100);
+  pros::delay(2000);
   tilter.move(0);
-  rightIntake.move(-50);
-  leftIntake.move(-50);
-  drivePIDTime(-1500, 1000, 200);
+  rightIntake.move(75);
+  leftIntake.move(75);
+  drivePIDTime(-1000, 1000, 200);
 }
 void blue_back()
 {
@@ -308,12 +321,7 @@ void red_back()
 }
 void blue_front_nopark_auton()
 {
-  drivePIDTime(-2370, 1500);
-  turnPIDTime(0, 800, false, 0.003);
-  pros::delay(400);
-  turnPIDTime(920, 1000, false);
-  drivePIDTime(600, 700, 900, 10, 1);
-  pros::delay(400);
+  //
 }
 void red_front_mid_nopark_auton()
 {

@@ -6,11 +6,10 @@
 void opcontrol()
 {
 	bool broke = false;
-	//driveRight.set_voltage_limit(12000);
-  //driveLeft.set_voltage_limit(12000);
-	//rightIntake.set_voltage_limit(12000);
-  //leftIntake.set_voltage_limit(12000);
 	bool reversed = false;
+	bool tilt = false;
+	double tiltpos;
+	tilter.tare_position();
 	while (true)
 	{
 		//drive control
@@ -57,10 +56,24 @@ void opcontrol()
 			broke = false;
 		}
 
+		if (weber.get_digital(DIGITAL_RIGHT))
+		{
+			tilt = true;
+		}
+
 		// tilter
 		if(abs(weber.get_analog(ANALOG_RIGHT_X)) > 1)
 		{
 			tilter.move(weber.get_analog(ANALOG_RIGHT_X));
+		}
+		else if (tilt == true)
+		{
+			tilter.move_absolute(0, 127);
+			tiltpos = tilter.get_position();
+			if (tiltpos < 3)
+			{
+				tilt = false;
+			}
 		}
 		else
 		{
@@ -84,10 +97,10 @@ void opcontrol()
 		{
 			leftIntake.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 			rightIntake.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-			rightIntake.move_velocity(35);
-			leftIntake.move_velocity(35);
-			driveRight.move_velocity(-10);
-			driveLeft.move_velocity(-10);
+			rightIntake.move_velocity(127);
+			leftIntake.move_velocity(127);
+			driveRight.move_velocity(-50);
+			driveLeft.move_velocity(-50);
 			leftIntake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 			rightIntake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 		}
