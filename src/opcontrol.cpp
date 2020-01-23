@@ -7,9 +7,16 @@ void opcontrol()
 {
 	bool broke = false;
 	bool reversed = false;
-	bool tilt = false;
+	bool tiltback = false;
+	bool tiltfor = false;
+	bool botLift = false;
+	bool lowLift = false;
+	bool medLift = false;
+	double leftLiftpos;
+	double rightLiftpos;
+	double midLiftpos;
 	double tiltpos;
-	tilter.tare_position();
+
 	while (true)
 	{
 		//drive control
@@ -56,23 +63,38 @@ void opcontrol()
 			broke = false;
 		}
 
-		if (weber.get_digital(DIGITAL_RIGHT))
-		{
-			tilt = true;
-		}
 
 		// tilter
+		if (weber.get_digital(DIGITAL_RIGHT))
+		{
+			tiltback = true;
+		}
+
+		if (weber.get_digital(DIGITAL_LEFT))
+		{
+			tiltfor = true;
+		}
+
 		if(abs(weber.get_analog(ANALOG_RIGHT_X)) > 1)
 		{
 			tilter.move(weber.get_analog(ANALOG_RIGHT_X));
 		}
-		else if (tilt == true)
+		else if (tiltfor == true)
+		{
+			tilter.move_absolute(6500, 127);
+			tiltpos = tilter.get_position();
+			if (tiltpos < 6503 && tiltpos > 6497)
+			{
+				tiltfor = false;
+			}
+		}
+		else if (tiltback == true)
 		{
 			tilter.move_absolute(0, 127);
 			tiltpos = tilter.get_position();
 			if (tiltpos < 3)
 			{
-				tilt = false;
+				tiltback = false;
 			}
 		}
 		else
@@ -115,18 +137,84 @@ void opcontrol()
 
 
 		// lift
-		if(abs(weber.get_analog(ANALOG_RIGHT_Y)) > 1)
+		if (weber.get_digital(DIGITAL_B))
 		{
+			botLift = true;
+		}
+
+		if (weber.get_digital(DIGITAL_L2))
+		{
+			lowLift = true;
+		}
+
+		if (weber.get_digital(DIGITAL_L1))
+		{
+			medLift = true;
+		}
+
+		if (abs(weber.get_analog(ANALOG_RIGHT_Y)) > 1)
+		{
+			botLift = false;
+			lowLift = false;
+			medLift = false;
 			leftLift.move(weber.get_analog(ANALOG_RIGHT_Y));
 			rightLift.move(weber.get_analog(ANALOG_RIGHT_Y));
+			midLift.move(weber.get_analog(ANALOG_RIGHT_Y));
+		}
+		else if (botLift == true)
+		{
+			leftLift.move_absolute(300, 127);
+			rightLift.move_absolute(300, 127);
+			midLift.move_absolute(300, 127);
+			leftLiftpos = leftLift.get_position();
+			rightLiftpos = rightLift.get_position();
+			midLiftpos = midLift.get_position();
+			if ((leftLiftpos < 310 && leftLiftpos > 290) && (rightLiftpos < 310 && rightLiftpos > 290) && (midLiftpos < 310 && midLiftpos > 290))
+			{
+				botLift = false;
+			}
+		}
+		else if (lowLift == true)
+		{
+			leftLift.move_absolute(2650, 127);
+			rightLift.move_absolute(2650, 127);
+			midLift.move_absolute(2650, 127);
+			leftLiftpos = leftLift.get_position();
+			rightLiftpos = rightLift.get_position();
+			midLiftpos = midLift.get_position();
+			if ((leftLiftpos < 2660 && leftLiftpos > 2640) && (rightLiftpos < 2660 && rightLiftpos > 2640) && (midLiftpos < 2660 && midLiftpos > 2640))
+			{
+				lowLift = false;
+			}
+		}
+		else if (medLift == true)
+		{
+			leftLift.move_absolute(3450, 127);
+			rightLift.move_absolute(3450, 127);
+			midLift.move_absolute(3450, 127);
+			leftLiftpos = leftLift.get_position();
+			rightLiftpos = rightLift.get_position();
+			midLiftpos = midLift.get_position();
+			if ((leftLiftpos < 3460 && leftLiftpos > 3440) && (rightLiftpos < 3460 && rightLiftpos > 3440) && (midLiftpos < 3460 && midLiftpos > 3440))
+			{
+				medLift = false;
+			}
 		}
 		else
 		{
 			leftLift.move_velocity(0);
 			rightLift.move_velocity(0);
+			midLift.move_velocity(0);
 
 			leftLift.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 			rightLift.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+			midLift.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+		}
+
+		// flipout
+		if (weber.get_digital(DIGITAL_X))
+		{
+			flipOut();
 		}
 
 		switch(getAutonNumber())
@@ -163,8 +251,8 @@ void opcontrol()
 		pros::lcd::print(3, "leftIntake %f", leftIntake.get_temperature() );
 		pros::lcd::print(4, "leftLift %f", leftLift.get_temperature() );
 		pros::lcd::print(5, "rightLift %f", rightLift.get_temperature() );
-		pros::lcd::print(6, "driveRight %f", driveRight.get_temperature() );
-		pros::lcd::print(7, "driveLeft %f", driveLeft.get_temperature() );
+		pros::lcd::print(6, "midLift %f", midLift.get_temperature() );
+		pros::lcd::print(7, "drive %f %f", driveLeft.get_temperature(), driveRight.get_temperature());
 		pros::delay(20);
 	}
 }

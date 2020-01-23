@@ -13,6 +13,7 @@ pros::Motor driveLeft(DRIVE_LEFT_PORT, pros::E_MOTOR_GEARSET_18, false);
 
 pros::Motor leftLift(LEFT_LIFT_PORT, pros::E_MOTOR_GEARSET_36, true);
 pros::Motor rightLift(RIGHT_LIFT_PORT, pros::E_MOTOR_GEARSET_36, false);
+pros::Motor midLift(MID_LIFT_PORT, pros::E_MOTOR_GEARSET_36, true);
 
 pros::Motor tilter(TILTER_PORT, pros::E_MOTOR_GEARSET_36, true);
 

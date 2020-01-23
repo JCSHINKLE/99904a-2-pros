@@ -8,6 +8,7 @@ extern pros::Motor driveRight;
 extern pros::Motor driveLeft;
 extern pros::Motor leftLift;
 extern pros::Motor rightLift;
+extern pros::Motor midLift;
 extern pros::Motor rightIntake;
 extern pros::Motor leftIntake;
 extern pros::Motor tilter;
@@ -21,6 +22,7 @@ extern double gyroOutputReal;
 extern int pinValues[4];
 
 extern int getAutonNumber();
+extern void flipOut();
 
 //pin declaration
 extern pros::ADIDigitalIn pin1;

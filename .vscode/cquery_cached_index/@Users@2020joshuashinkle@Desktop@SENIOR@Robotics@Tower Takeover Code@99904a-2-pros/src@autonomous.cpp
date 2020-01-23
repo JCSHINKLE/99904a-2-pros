@@ -224,20 +224,27 @@ void drivePIDTime (double target, double time, double setPointRange = 900, doubl
 
 void flipOut ()
 {
+  tilter.tare_position();
+	leftLift.tare_position();
+	rightLift.tare_position();
+	midLift.tare_position();
   driveRight.move(-75);
   driveLeft.move(-75);
   rightIntake.move(127);
   leftIntake.move(127);
   leftLift.move(127);
   rightLift.move(127);
+  midLift.move(127);
   pros::delay(700);
   rightIntake.move(-127);
   leftIntake.move(-127);
-  leftLift.move(-127);
-  rightLift.move(-127);
+  leftLift.move(-90);
+  rightLift.move(-90);
+  midLift.move(-90);
   pros::delay(700);
   leftLift.move(0);
   rightLift.move(0);
+  midLift.move(0);
   driveRight.move(0);
   driveLeft.move(0);
 }
@@ -265,48 +272,56 @@ void any_1()
 }
 void blue_front()
 {
-  leftLift.tare_position();
-  rightLift.tare_position();
-  tilter.tare_position();
   flipOut();
   drivePIDTime(3000, 4200, 200);
   rightIntake.move(0);
   leftIntake.move(0);
-  drivePIDTime(-1500, 1500);
+  drivePIDTime(-1600, 1400);
   rightIntake.move(65);
   leftIntake.move(65);
   pros::delay(500);
   rightIntake.move(-40);
   leftIntake.move(-40);
-  turnPIDTime(-1350, 1500, 200);
-  drivePIDTime(1550, 2000, 200);
-  tilter.move(100);
-  pros::delay(2000);
+  turnPIDTime(-1350, 1000);
+  rightIntake.move(0);
+  leftIntake.move(0);
+  drivePIDTime(900, 1400, 300);
+  tilter.move(127);
+  pros::delay(1900);
   tilter.move(0);
+  rightIntake.move(70);
+  leftIntake.move(70);
+  pros::delay(1000);
+  rightIntake.move(0);
+  leftIntake.move(0);
   rightIntake.move(75);
   leftIntake.move(75);
   drivePIDTime(-1000, 1000, 200);
 }
 void red_front()
 {
-  leftLift.tare_position();
-  rightLift.tare_position();
-  tilter.tare_position();
   flipOut();
   drivePIDTime(3000, 4200, 200);
   rightIntake.move(0);
   leftIntake.move(0);
-  drivePIDTime(-1500, 1500);
+  drivePIDTime(-1600, 1400);
   rightIntake.move(65);
   leftIntake.move(65);
   pros::delay(500);
   rightIntake.move(-40);
   leftIntake.move(-40);
-  turnPIDTime(1350, 1500, 200);
-  drivePIDTime(1550, 2000, 200);
-  tilter.move(100);
-  pros::delay(2000);
+  turnPIDTime(1350, 1000);
+  rightIntake.move(0);
+  leftIntake.move(0);
+  drivePIDTime(900, 1400, 300);
+  tilter.move(127);
+  pros::delay(1900);
   tilter.move(0);
+  rightIntake.move(70);
+  leftIntake.move(70);
+  pros::delay(1000);
+  rightIntake.move(0);
+  leftIntake.move(0);
   rightIntake.move(75);
   leftIntake.move(75);
   drivePIDTime(-1000, 1000, 200);
