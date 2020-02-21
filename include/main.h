@@ -36,18 +36,18 @@
 
 #include "api.h"
 
-// broken ports: 1 5 7 8 9 10 16 17 19 20
-#define DRIVE_RIGHT_PORT 15
-#define DRIVE_LEFT_PORT 2
+// broken ports 4 5 6 9 11 12 13 15 16 18 20
+#define DRIVE_RIGHT_PORT 2
+#define DRIVE_LEFT_PORT 1
 
 #define LEFT_LIFT_PORT 3
-#define RIGHT_LIFT_PORT 4
-#define MID_LIFT_PORT 11
+#define RIGHT_LIFT_PORT 7
+#define MID_LIFT_PORT 8
 
-#define TILTER_PORT 18
+#define TILTER_PORT 10
 
-#define RIGHT_INTAKE_PORT 12
-#define LEFT_INTAKE_PORT 6
+#define RIGHT_INTAKE_PORT 17
+#define LEFT_INTAKE_PORT 14
 
 #define GYRO_PORT 7
 /**

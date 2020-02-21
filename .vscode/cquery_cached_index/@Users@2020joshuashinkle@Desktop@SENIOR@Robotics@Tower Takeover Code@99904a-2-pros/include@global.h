@@ -23,6 +23,7 @@ extern int pinValues[4];
 
 extern int getAutonNumber();
 extern void flipOut();
+extern void stack();
 
 //pin declaration
 extern pros::ADIDigitalIn pin1;

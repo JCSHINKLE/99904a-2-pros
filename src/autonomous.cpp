@@ -228,120 +228,142 @@ void flipOut ()
 	leftLift.tare_position();
 	rightLift.tare_position();
 	midLift.tare_position();
-  driveRight.move(-75);
-  driveLeft.move(-75);
-  rightIntake.move(127);
-  leftIntake.move(127);
-  leftLift.move(127);
-  rightLift.move(127);
-  midLift.move(127);
-  pros::delay(700);
-  rightIntake.move(-127);
-  leftIntake.move(-127);
-  leftLift.move(-90);
-  rightLift.move(-90);
-  midLift.move(-90);
-  pros::delay(700);
-  leftLift.move(0);
-  rightLift.move(0);
-  midLift.move(0);
+
+  driveRight.move(127);
+  driveLeft.move(127);
+  pros::delay(400);
+  driveRight.move(-127);
+  driveLeft.move(-127);
+  pros::delay(400);
   driveRight.move(0);
   driveLeft.move(0);
+
+  rightIntake.move(127);
+  leftIntake.move(127);
+  pros::delay(500);
+  rightIntake.move(-127);
+  leftIntake.move(-127);
+  pros::delay(500);
+
+  leftLift.move_absolute(300, 127);
+  rightLift.move_absolute(300, 127);
+  midLift.move_absolute(300, 127);
+}
+
+void stack ()
+{
+  rightIntake.move(127);
+  leftIntake.move(127);
+  pros::delay(60);
+  rightIntake.move(0);
+  leftIntake.move(0);
+  tilter.move(127);
+  pros::delay(700);
+  tilter.move(0);
+  rightIntake.move(70);
+  leftIntake.move(70);
+  pros::delay(1000);
+  rightIntake.move(0);
+  leftIntake.move(0);
+  rightIntake.move(75);
+  leftIntake.move(75);
+  drivePIDTime(-1000, 1000, 500);
 }
 
 void any_1()
 {
-  drivePIDTime(-1000, 1000, 500);
+  drivePIDTime(-1000, 1000);
   pros::delay(400);
   drivePIDTime(1000, 1000);
-  rightIntake.move(127);
-  leftIntake.move(127);
-  leftLift.move(127);
-  rightLift.move(127);
-  pros::delay(700);
-  rightIntake.move(-127);
-  leftIntake.move(-127);
-  leftLift.move(-127);
-  rightLift.move(-127);
-  pros::delay(700);
-  leftLift.move(0);
-  rightLift.move(0);
-  rightIntake.move(0);
-  leftIntake.move(0);
-
+  flipOut();
 }
+
 void blue_front()
 {
   flipOut();
-  drivePIDTime(3000, 4200, 200);
+
+  drivePIDTime(3000, 3100, 300);
   rightIntake.move(0);
   leftIntake.move(0);
-  drivePIDTime(-1600, 1400);
-  rightIntake.move(65);
-  leftIntake.move(65);
-  pros::delay(500);
-  rightIntake.move(-40);
-  leftIntake.move(-40);
-  turnPIDTime(-1350, 1000);
-  rightIntake.move(0);
-  leftIntake.move(0);
-  drivePIDTime(900, 1400, 300);
-  tilter.move(127);
-  pros::delay(1900);
-  tilter.move(0);
-  rightIntake.move(70);
-  leftIntake.move(70);
-  pros::delay(1000);
-  rightIntake.move(0);
-  leftIntake.move(0);
-  rightIntake.move(75);
-  leftIntake.move(75);
-  drivePIDTime(-1000, 1000, 200);
+
+  drivePIDTime(-1850, 1400);
+
+  turnPIDTime(-1400, 900);
+
+  drivePIDTime(900, 1400);
+
+  stack();
 }
+
 void red_front()
 {
   flipOut();
-  drivePIDTime(3000, 4200, 200);
+
+  drivePIDTime(3000, 3100, 300);
   rightIntake.move(0);
   leftIntake.move(0);
-  drivePIDTime(-1600, 1400);
-  rightIntake.move(65);
-  leftIntake.move(65);
-  pros::delay(500);
-  rightIntake.move(-40);
-  leftIntake.move(-40);
-  turnPIDTime(1350, 1000);
-  rightIntake.move(0);
-  leftIntake.move(0);
-  drivePIDTime(900, 1400, 300);
-  tilter.move(127);
-  pros::delay(1900);
-  tilter.move(0);
-  rightIntake.move(70);
-  leftIntake.move(70);
-  pros::delay(1000);
-  rightIntake.move(0);
-  leftIntake.move(0);
-  rightIntake.move(75);
-  leftIntake.move(75);
-  drivePIDTime(-1000, 1000, 200);
+
+  drivePIDTime(-1650, 1400);
+
+  turnPIDTime(1400, 900);
+
+  drivePIDTime(900, 1400);
+
+  stack();
 }
+
 void blue_back()
 {
-  //
+  flipOut();
+
+  drivePIDTime(1300, 1100, 500);
+
+  driveRight.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+  driveLeft.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+
+  leftLift.move_absolute(3700, 127);
+  rightLift.move_absolute(3700, 127);
+  midLift.move_absolute(3700, 127);
+  pros::delay(1000);
+
+  drivePIDTime(600, 1000);
+
+  leftLift.move(-70);
+  rightLift.move(-70);
+  midLift.move(-70);
+  pros::delay(3500);
+  leftLift.move(0);
+  rightLift.move(0);
+  midLift.move(0);
+
+  driveRight.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+  driveLeft.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+
+  turnPIDTime(1225, 1500);
+
+  drivePIDTime(1550, 1000);
+  //pros::delay(500);
+  rightIntake.move(0);
+  leftIntake.move(0);
+
+  stack();
 }
+
 void red_back()
 {
   //
 }
+
 void blue_front_nopark_auton()
 {
   //
 }
+
 void red_front_mid_nopark_auton()
 {
   //
 }
+
 void prog_skills()
 {
   //

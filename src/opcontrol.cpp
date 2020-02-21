@@ -77,20 +77,29 @@ void opcontrol()
 
 		if(abs(weber.get_analog(ANALOG_RIGHT_X)) > 1)
 		{
+			tiltfor = false;
+			tiltback = false;
 			tilter.move(weber.get_analog(ANALOG_RIGHT_X));
 		}
 		else if (tiltfor == true)
 		{
-			tilter.move_absolute(6500, 127);
+			if (tiltpos > 2000)
+			{
+				tilter.move_absolute(2850, 100);
+			}
+			else
+			{
+				tilter.move_absolute(2850, 200);
+			}
 			tiltpos = tilter.get_position();
-			if (tiltpos < 6503 && tiltpos > 6497)
+			if (tiltpos < 2853 && tiltpos > 2847)
 			{
 				tiltfor = false;
 			}
 		}
 		else if (tiltback == true)
 		{
-			tilter.move_absolute(0, 127);
+			tilter.move_absolute(0, 200);
 			tiltpos = tilter.get_position();
 			if (tiltpos < 3)
 			{
@@ -107,20 +116,20 @@ void opcontrol()
 		// cube intake
 		if (weber.get_digital(DIGITAL_R2))
 		{
-			rightIntake.move_velocity(100);
-			leftIntake.move_velocity(100);
+			rightIntake.move_velocity(200);
+			leftIntake.move_velocity(200);
 		}
 		else if (weber.get_digital(DIGITAL_R1))
 		{
-			rightIntake.move_velocity(-100);
-			leftIntake.move_velocity(-100);
+			rightIntake.move_velocity(-200);
+			leftIntake.move_velocity(-200);
 		}
 		else if (weber.get_digital(DIGITAL_A))
 		{
 			leftIntake.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 			rightIntake.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-			rightIntake.move_velocity(127);
-			leftIntake.move_velocity(127);
+			rightIntake.move_velocity(200);
+			leftIntake.move_velocity(200);
 			driveRight.move_velocity(-50);
 			driveLeft.move_velocity(-50);
 			leftIntake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
@@ -163,9 +172,9 @@ void opcontrol()
 		}
 		else if (botLift == true)
 		{
-			leftLift.move_absolute(300, 127);
-			rightLift.move_absolute(300, 127);
-			midLift.move_absolute(300, 127);
+			leftLift.move_absolute(300, 100);
+			rightLift.move_absolute(300, 100);
+			midLift.move_absolute(300, 100);
 			leftLiftpos = leftLift.get_position();
 			rightLiftpos = rightLift.get_position();
 			midLiftpos = midLift.get_position();
@@ -176,9 +185,9 @@ void opcontrol()
 		}
 		else if (lowLift == true)
 		{
-			leftLift.move_absolute(2650, 127);
-			rightLift.move_absolute(2650, 127);
-			midLift.move_absolute(2650, 127);
+			leftLift.move_absolute(2650, 100);
+			rightLift.move_absolute(2650, 100);
+			midLift.move_absolute(2650, 100);
 			leftLiftpos = leftLift.get_position();
 			rightLiftpos = rightLift.get_position();
 			midLiftpos = midLift.get_position();
@@ -189,9 +198,9 @@ void opcontrol()
 		}
 		else if (medLift == true)
 		{
-			leftLift.move_absolute(3450, 127);
-			rightLift.move_absolute(3450, 127);
-			midLift.move_absolute(3450, 127);
+			leftLift.move_absolute(3450, 100);
+			rightLift.move_absolute(3450, 100);
+			midLift.move_absolute(3450, 100);
 			leftLiftpos = leftLift.get_position();
 			rightLiftpos = rightLift.get_position();
 			midLiftpos = midLift.get_position();
