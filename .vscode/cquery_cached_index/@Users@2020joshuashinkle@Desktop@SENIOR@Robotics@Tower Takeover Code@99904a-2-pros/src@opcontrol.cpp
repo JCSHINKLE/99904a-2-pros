@@ -172,13 +172,13 @@ void opcontrol()
 		}
 		else if (botLift == true)
 		{
-			leftLift.move_absolute(300, 100);
-			rightLift.move_absolute(300, 100);
-			midLift.move_absolute(300, 100);
+			leftLift.move_absolute(510, 100);
+			rightLift.move_absolute(510, 100);
+			midLift.move_absolute(510, 100);
 			leftLiftpos = leftLift.get_position();
 			rightLiftpos = rightLift.get_position();
 			midLiftpos = midLift.get_position();
-			if ((leftLiftpos < 310 && leftLiftpos > 290) && (rightLiftpos < 310 && rightLiftpos > 290) && (midLiftpos < 310 && midLiftpos > 290))
+			if ((leftLiftpos < 520 && leftLiftpos > 500) && (rightLiftpos < 520 && rightLiftpos > 500) && (midLiftpos < 520 && midLiftpos > 500))
 			{
 				botLift = false;
 			}

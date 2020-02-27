@@ -234,20 +234,20 @@ void flipOut ()
   pros::delay(400);
   driveRight.move(-127);
   driveLeft.move(-127);
-  pros::delay(400);
-  driveRight.move(0);
-  driveLeft.move(0);
-
+  pros::delay(200);
   rightIntake.move(127);
   leftIntake.move(127);
-  pros::delay(500);
+  pros::delay(200);
+  driveRight.move(0);
+  driveLeft.move(0);
+  pros::delay(300);
   rightIntake.move(-127);
   leftIntake.move(-127);
-  pros::delay(500);
 
-  leftLift.move_absolute(300, 127);
-  rightLift.move_absolute(300, 127);
-  midLift.move_absolute(300, 127);
+  leftLift.move_absolute(510, 127);
+  rightLift.move_absolute(510, 127);
+  midLift.move_absolute(510, 127);
+  pros::delay(500);
 }
 
 void stack ()
@@ -257,14 +257,19 @@ void stack ()
   pros::delay(60);
   rightIntake.move(0);
   leftIntake.move(0);
-  tilter.move(127);
-  pros::delay(700);
-  tilter.move(0);
-  rightIntake.move(70);
-  leftIntake.move(70);
-  pros::delay(1000);
-  rightIntake.move(0);
-  leftIntake.move(0);
+
+  leftLift.move_absolute(100, 127);
+  rightLift.move_absolute(100, 127);
+  midLift.move_absolute(100, 127);
+  pros::delay(500);
+
+  tilter.move_absolute(2000, 200);
+  pros::delay(500);
+  rightIntake.move(50);
+  leftIntake.move(50);
+  tilter.move_absolute(3000, 200);
+  pros::delay(1300);
+
   rightIntake.move(75);
   leftIntake.move(75);
   drivePIDTime(-1000, 1000, 500);
@@ -326,23 +331,28 @@ void blue_back()
   midLift.move_absolute(3700, 127);
   pros::delay(1000);
 
-  drivePIDTime(600, 1000);
+  drivePIDTime(550, 1200);
 
   leftLift.move(-70);
   rightLift.move(-70);
   midLift.move(-70);
-  pros::delay(3500);
+  pros::delay(2000);
   leftLift.move(0);
   rightLift.move(0);
   midLift.move(0);
 
+  leftLift.move_absolute(510, 127);
+  rightLift.move_absolute(510, 127);
+  midLift.move_absolute(510, 127);
+  pros::delay(500);
+
   driveRight.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
   driveLeft.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 
-  turnPIDTime(1225, 1500);
+  turnPIDTime(1150, 1000);
 
-  drivePIDTime(1550, 1000);
-  //pros::delay(500);
+  drivePIDTime(1800, 1500);
+
   rightIntake.move(0);
   leftIntake.move(0);
 
@@ -351,7 +361,44 @@ void blue_back()
 
 void red_back()
 {
-  //
+  flipOut();
+
+  drivePIDTime(1300, 1100, 500);
+
+  driveRight.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+  driveLeft.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+
+  leftLift.move_absolute(3700, 127);
+  rightLift.move_absolute(3700, 127);
+  midLift.move_absolute(3700, 127);
+  pros::delay(1000);
+
+  drivePIDTime(550, 1200);
+
+  leftLift.move(-70);
+  rightLift.move(-70);
+  midLift.move(-70);
+  pros::delay(2000);
+  leftLift.move(0);
+  rightLift.move(0);
+  midLift.move(0);
+
+  leftLift.move_absolute(510, 127);
+  rightLift.move_absolute(510, 127);
+  midLift.move_absolute(510, 127);
+  pros::delay(500);
+
+  driveRight.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+  driveLeft.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+
+  turnPIDTime(-1150, 1000);
+
+  drivePIDTime(1800, 1500);
+
+  rightIntake.move(0);
+  leftIntake.move(0);
+
+  stack();
 }
 
 void blue_front_nopark_auton()
