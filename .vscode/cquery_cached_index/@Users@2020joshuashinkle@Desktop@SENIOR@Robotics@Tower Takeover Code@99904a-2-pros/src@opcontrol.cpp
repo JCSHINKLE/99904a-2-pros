@@ -126,22 +126,22 @@ void opcontrol()
 		}
 		else if (weber.get_digital(DIGITAL_A))
 		{
-			leftIntake.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-			rightIntake.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+			//leftIntake.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+			//rightIntake.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 			rightIntake.move_velocity(200);
 			leftIntake.move_velocity(200);
 			driveRight.move_velocity(-50);
 			driveLeft.move_velocity(-50);
-			leftIntake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-			rightIntake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+			//leftIntake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+			//rightIntake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 		}
 		else
 		{
 			leftIntake.move_velocity(0);
 			rightIntake.move_velocity(0);
 
-			leftIntake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-			rightIntake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+			leftIntake.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+			rightIntake.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 		}
 
 
@@ -198,13 +198,13 @@ void opcontrol()
 		}
 		else if (medLift == true)
 		{
-			leftLift.move_absolute(3450, 100);
-			rightLift.move_absolute(3450, 100);
-			midLift.move_absolute(3450, 100);
+			leftLift.move_absolute(3500, 100);
+			rightLift.move_absolute(3500, 100);
+			midLift.move_absolute(3500, 100);
 			leftLiftpos = leftLift.get_position();
 			rightLiftpos = rightLift.get_position();
 			midLiftpos = midLift.get_position();
-			if ((leftLiftpos < 3460 && leftLiftpos > 3440) && (rightLiftpos < 3460 && rightLiftpos > 3440) && (midLiftpos < 3460 && midLiftpos > 3440))
+			if ((leftLiftpos < 3510 && leftLiftpos > 3490) && (rightLiftpos < 3510 && rightLiftpos > 3490) && (midLiftpos < 3510 && midLiftpos > 3490))
 			{
 				medLift = false;
 			}
@@ -224,6 +224,12 @@ void opcontrol()
 		if (weber.get_digital(DIGITAL_X))
 		{
 			flipOut();
+		}
+
+		// stack
+		if (weber.get_digital(DIGITAL_DOWN))
+		{
+			stack();
 		}
 
 		switch(getAutonNumber())

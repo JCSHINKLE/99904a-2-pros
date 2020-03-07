@@ -25,11 +25,11 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/motors.cpp.o",
-            "src/motors.cpp"
+            "bin/opcontrol.cpp.o",
+            "src/opcontrol.cpp"
         ],
         "directory": "/Users/2020joshuashinkle/Desktop/SENIOR/Robotics/Tower Takeover Code/99904a-2-pros",
-        "file": "src/motors.cpp"
+        "file": "src/opcontrol.cpp"
     },
     {
         "arguments": [
@@ -89,11 +89,11 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/opcontrol.cpp.o",
-            "src/opcontrol.cpp"
+            "bin/MiniPID.cpp.o",
+            "src/MiniPID.cpp"
         ],
         "directory": "/Users/2020joshuashinkle/Desktop/SENIOR/Robotics/Tower Takeover Code/99904a-2-pros",
-        "file": "src/opcontrol.cpp"
+        "file": "src/MiniPID.cpp"
     },
     {
         "arguments": [
@@ -121,11 +121,11 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/MiniPID.cpp.o",
-            "src/MiniPID.cpp"
+            "bin/motors.cpp.o",
+            "src/motors.cpp"
         ],
         "directory": "/Users/2020joshuashinkle/Desktop/SENIOR/Robotics/Tower Takeover Code/99904a-2-pros",
-        "file": "src/MiniPID.cpp"
+        "file": "src/motors.cpp"
     },
     {
         "arguments": [
